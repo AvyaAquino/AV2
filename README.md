@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# ✈️ AeroCode GUI - Protótipo de Gestão de Produção
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[cite_start]Este é um protótipo de front-end de uma Aplicação de Página Única (SPA) [cite: 324] [cite_start]desenvolvida em React [cite: 374-375] [cite_start]para a Atividade de Avaliação 2[cite: 248]. [cite_start]O objetivo é substituir a interface de linha de comando (CLI) anterior por uma interface gráfica de usuário (GUI) [cite: 314-316] [cite_start]mais intuitiva, facilitando o gerenciamento da produção de aeronaves[cite: 307].
 
-Currently, two official plugins are available:
+[cite_start]O projeto funciona como um protótipo navegável, utilizando dados "mocados" (mock data) e gerenciamento de estado via React Context, sem um back-end[cite: 388].
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades Implementadas
 
-## React Compiler
+* **Autenticação**: Sistema de login real com estado global (React Context).
+* **Rotas Protegidas**: O usuário não pode acessar o sistema (`/app/*`) sem estar logado.
+* **Controle de Permissão**: O menu lateral é dinâmico e exibe/oculta a página de "Funcionários" com base no nível de permissão (Administrador, Engenheiro, Operador).
+* **Dashboard**: Tela inicial com estatísticas resumidas (total de aeronaves, em produção, etc.).
+* **CRUD de Aeronaves**:
+    * Listar aeronaves em uma tabela (`antd Table`).
+    * Adicionar uma nova aeronave (com formulário e salvamento no Contexto).
+* **CRUD de Funcionários** (Acesso de Admin):
+    * Listar funcionários em uma tabela.
+    * Adicionar novo funcionário (via modal `antd`).
+* **Página de Detalhes da Aeronave (Hub de Gestão)**:
+    * Navegação por Abas (`antd Tabs`) para Detalhes, Peças, Etapas, Testes e Relatório.
+    * **Aba Peças**: Adicionar peças e atualizar o status de peças existentes (via modal).
+    * [cite_start]**Aba Etapas**: Adicionar etapas, editar responsáveis e **avançar o status** (com a lógica de sequência [cite: 172] que impede avançar fora de ordem).
+    * [cite_start]**Aba Testes**: Registrar novos testes (Aprovado/Reprovado) [cite: 181-182].
+    * [cite_start]**Aba Relatório**: Gerar um relatório final em texto (simulado em um modal) com base nos dados da aeronave [cite: 183-184].
+* **Gerenciamento de Estado Global**: O `DataContext` permite que todas as adições e edições (novas peças, funcionários, status de etapas) persistam durante a sessão do usuário.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+* **React**
+* **Vite** (Build Tool)
+* **TypeScript**
+* **React Router v6** (Para navegação da SPA)
+* **Ant Design (`antd`)** (Biblioteca de componentes de UI)
+* **React Context** (Para gerenciamento de estado de Autenticação e Dados)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚙️ Como Instalar e Executar
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Pré-requisitos
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* Node.js (v18 ou superior)
+* NPM ou Yarn
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Instalação
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1.  Clone este repositório:
+    ```bash
+    git clone [URL_DO_SEU_REPOSITORIO]
+    ```
+2.  Entre na pasta do projeto:
+    ```bash
+    cd aero-gui
+    ```
+3.  Instale as dependências (incluindo `antd`, `react-router-dom`, etc.):
+    ```bash
+    npm install
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Execução
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  Para iniciar o servidor de desenvolvimento (com Hot Reload):
+    ```bash
+    npm run dev
+    ```
+2.  Abra o seu navegador e acesse [http://localhost:5173](http://localhost:5173) (ou a porta indicada no terminal).
+
+## 🔑 Credenciais de Teste
+
+O sistema utiliza dados mocados para simular o login. Você pode usar as seguintes credenciais:
+
+| Usuário | Senha | Nível | Acesso |
+| :--- | :--- | :--- | :--- |
+| `admin` | `admin` | Administrador | Vê tudo, pode adicionar funcionários. |
+| `eng` | (qualquer) | Engenheiro | Vê tudo, exceto gerenciamento de funcionários. |
+| `op` | (qualquer) | Operador | Vê tudo, exceto gerenciamento de funcionários. |
